@@ -1,0 +1,13 @@
+imports:
+    - { resource: services/twig.yml }
+    - { resource: services/widget.yml }
+
+services:
+    evgit.widget.widget_collection:
+        class: Evgit\Bundle\WidgetBundle\Service\WidgetCollection
+        public: false
+
+    evgit.widget.parser:
+        class: Evgit\Bundle\WidgetBundle\Service\Parser
+        calls:
+            - [setWidgetCollection, ["@evgit.widget.widget_collection"]]

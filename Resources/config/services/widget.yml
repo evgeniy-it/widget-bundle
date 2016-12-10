@@ -1,0 +1,23 @@
+services:
+    Evgit.widget.abstract_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\AbstractWidget
+        abstract: true
+        calls:
+            - [setTwig, ['@twig']]
+
+    evgit.widget.base_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\BaseWidget
+        parent: Evgit.widget.abstract_widget
+        calls:
+            - [setTemplate, ["{{content}}"]]
+            - [setName, ["base_widget"]]
+        tags:
+            - {name: widget}
+
+    evgit.widget.simple_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\SimpleWidget
+        parent: Evgit.widget.abstract_widget
+        calls:
+            - [setName, ["simple"]]
+        tags:
+            - {name: widget}

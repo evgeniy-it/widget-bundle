@@ -1,0 +1,8 @@
+services:
+    evgit.widget.twig_extension.widget_extension:
+        class: Evgit\Bundle\WidgetBundle\Twig\Extension\WidgetExtension
+        public: false
+        calls:
+            - [setContainer, ['@service_container']]
+        tags:
+            - { name: twig.extension }
