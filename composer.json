@@ -6,7 +6,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Evgeniy Shevchenko"
+            "name": "Evgeniy Shevchenko",
+            "email": "evgeniy.it@gmail.com"
         }
     ],
     "require": {
