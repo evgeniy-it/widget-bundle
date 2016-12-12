@@ -10,4 +10,4 @@ services:
     evgit.widget.parser:
         class: Evgit\Bundle\WidgetBundle\Service\Parser
         calls:
-            - [setWidgetCollection, ["@evgit.widget.widget_collection"]]
+            - [setWidgetCollection, ['@evgit.widget.widget_collection']]

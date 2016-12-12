@@ -1,23 +1,24 @@
 services:
-    Evgit.widget.abstract_widget:
+    evgit.widget.abstract_widget:
         class: Evgit\Bundle\WidgetBundle\Widget\AbstractWidget
         abstract: true
         calls:
             - [setTwig, ['@twig']]
 
-    evgit.widget.base_widget:
-        class: Evgit\Bundle\WidgetBundle\Widget\BaseWidget
-        parent: Evgit.widget.abstract_widget
+    evgit.widget.simple_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\SimpleWidget
+        parent: evgit.widget.abstract_widget
         calls:
-            - [setTemplate, ["{{content}}"]]
-            - [setName, ["base_widget"]]
+            - [setName, ['simple']]
+            - [setTemplate, ['{{content}}']]
         tags:
             - {name: widget}
 
-    evgit.widget.simple_widget:
+    evgit.widget.models_widget:
         class: Evgit\Bundle\WidgetBundle\Widget\SimpleWidget
-        parent: Evgit.widget.abstract_widget
+        parent: evgit.widget.abstract_widget
         calls:
-            - [setName, ["simple"]]
-        tags:
+            - [setName, ['models']]
+            - [setTemplate, ['{{content}}']]
+         tags:
             - {name: widget}
