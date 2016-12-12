@@ -14,11 +14,11 @@ services:
         tags:
             - {name: widget}
 
-    evgit.widget.models_widget:
-        class: Evgit\Bundle\WidgetBundle\Widget\SimpleWidget
+    evgit.widget.repository_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\RepositoryWidget
         parent: evgit.widget.abstract_widget
         calls:
-            - [setName, ['models']]
-            - [setTemplate, ['{{content}}']]
-         tags:
+            - [setName, ['repository']]
+            - [setDoctrine, ['@doctrine']]
+        tags:
             - {name: widget}

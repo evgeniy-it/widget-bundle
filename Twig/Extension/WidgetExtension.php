@@ -31,7 +31,7 @@ class WidgetExtension extends \Twig_Extension
      */
     public function processWidget($content)
     {
-        return $this->container->get("Evgit.widget.parser")->process($content);
+        return $this->container->get("evgit.widget.parser")->process($content);
     }
 
     /**
