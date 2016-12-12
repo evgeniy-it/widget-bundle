@@ -21,7 +21,7 @@ class Parser
     private $widgetCollection;
 
     /**
-     * @param string $string
+     * @param string    $string
      * @param bool|true $processRecursive
      *
      * @return string
@@ -80,7 +80,6 @@ class Parser
         $tagProps = $this->escSplit("&", $string);
 
         foreach ($tagProps as $prop) {
-
             $property = $this->escSplit('=', $prop);
             if (count($property) == 2) {
                 $propName = $property[0];
@@ -89,7 +88,7 @@ class Parser
                 }
                 $propValue = $property[1];
                 $pvTmp = $this->escSplit(';', $propValue);
-                if ($pvTmp && isset ($pvTmp[1])) {
+                if ($pvTmp && isset($pvTmp[1])) {
                     $propValue = $pvTmp[0];
                 }
                 if ($propValue[0] == '`' && $propValue[strlen($propValue) - 1] == '`') {
@@ -108,7 +107,7 @@ class Parser
      * @param string $char
      * @param string $str
      * @param string $escToken
-     * @param int $limit
+     * @param int    $limit
      *
      * @return array
      */
@@ -131,7 +130,9 @@ class Parser
             for ($i = $startPos; $i <= $strlen; $i++) {
                 if ($i == $strlen) {
                     $tmp = trim(substr($str, $searchPos));
-                    if (!empty($tmp)) $split[] = $tmp;
+                    if (!empty($tmp)) {
+                        $split[] = $tmp;
+                    }
                     break;
                 }
 
@@ -169,6 +170,7 @@ class Parser
         } else {
             $split[] = trim($str);
         }
+
         return $split;
     }
 
