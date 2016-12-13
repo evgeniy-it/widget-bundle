@@ -21,6 +21,9 @@ class RepositoryWidget extends AbstractWidget
      */
     private $doctrine;
 
+    /**
+     * __construct()
+     */
     public function __construct()
     {
         $this->resolver = new OptionsResolver();
@@ -50,24 +53,28 @@ class RepositoryWidget extends AbstractWidget
         }
 
         $data = call_user_func_array([$repository, $options['function']], $this->argsProcess($options['args']));
-        if( empty($data)) {
+
+        if (empty($data) || !count($data)) {
             return "";
         }
 
+        if (!is_array($data)) {
+            $data = [$data];
+        }
         $return = "";
 
         if ($options['beforeTpl']) {
             $return .= $this->render($options, $options['beforeTpl']);
         }
-        $return = $this->render($options);
         foreach ($data as $n => $item) {
             $rowOptions = array_merge($options, [
                 'item' => $item,
                 'idx' => $n,
                 'isFirst' => $n === 0,
-                'isLast' => count($item) - 1 === $n]);
+                'isLast' => count($item) - 1 === $n,
+            ]);
 
-            $return .= $this->render($options, $options['tpl']);
+            $return .= $this->render($rowOptions, $options['tpl']);
 
         }
         if ($options['beforeTpl']) {
@@ -77,24 +84,38 @@ class RepositoryWidget extends AbstractWidget
         return $return;
     }
 
+    /**
+     * setDefaultOptions
+     */
     public function setDefaultOptions()
     {
         $this->resolver->setRequired(['model', 'function']);
-        $this->resolver->setDefaults(['beforeTpl' => '', 'afterTpl' => '', 'args', 'tpl' ]);
+        $this->resolver->setDefaults([
+            'beforeTpl' => '',
+            'afterTpl' => '',
+            'args' => "",
+            'tpl' => "",
+        ]);
     }
 
     /**
      * @param RegistryInterface $doctrine
      */
-    public function setDoctrine($doctrine)
+    public function setDoctrine(RegistryInterface $doctrine)
     {
         $this->doctrine = $doctrine;
     }
 
+    /**
+     * @param $args
+     *
+     * @return array|mixed
+     */
     protected function argsProcess($args)
     {
         $return = json_decode($args);
-        if (json_last_error() == JSON_ERROR_NONE) {
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
             $return = [$args];
         }
 
