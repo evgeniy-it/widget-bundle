@@ -19,6 +19,6 @@ services:
         parent: evgit.widget.abstract_widget
         calls:
             - [setName, ['repository']]
-            - [setDoctrine, ['@doctrine']]
+#            - [setDoctrine, ['@doctrine']]
         tags:
             - {name: widget}
