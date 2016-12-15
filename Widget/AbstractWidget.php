@@ -71,14 +71,22 @@ abstract class AbstractWidget implements WidgetInterface
      *
      * @return string
      */
-    public function render(array $options = [])
+    public function render(array $options = [], $template = false)
     {
-        if (strpos($this->template, ":") === false
-            || strpos($this->template, " ") !== false
+        if (false === $template) {
+            $template = $this->template;
+        }
+
+        if (!$template) {
+            return "";
+        }
+
+        if (strpos($template, ":") === false
+            || strpos($template, " ") !== false
         ) {
-            $templateName = 'template'.md5($this->template);
+            $templateName = 'template'.md5($template);
             $loader = new \Twig_Loader_Array([
-                $templateName => $this->template,
+                $templateName => $template,
             ]);
 
             $twig = new \Twig_Environment($loader);
@@ -86,6 +94,6 @@ abstract class AbstractWidget implements WidgetInterface
             return $twig->render($templateName, $options);
         }
 
-        return $this->twig->render($this->template, $options);
+        return $this->twig->render($template, $options);
     }
 }

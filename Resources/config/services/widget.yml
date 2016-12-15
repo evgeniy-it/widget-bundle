@@ -5,19 +5,20 @@ services:
         calls:
             - [setTwig, ['@twig']]
 
-    evgit.widget.base_widget:
-        class: Evgit\Bundle\WidgetBundle\Widget\BaseWidget
-        parent: evgit.widget.abstract_widget
-        calls:
-            - [setTemplate, ["{{content}}"]]
-            - [setName, ["base_widget"]]
-        tags:
-            - {name: widget}
-
     evgit.widget.simple_widget:
         class: Evgit\Bundle\WidgetBundle\Widget\SimpleWidget
         parent: evgit.widget.abstract_widget
         calls:
-            - [setName, ["simple"]]
+            - [setName, ['simple']]
+            - [setTemplate, ['{{content}}']]
+        tags:
+            - {name: widget}
+
+    evgit.widget.repository_widget:
+        class: Evgit\Bundle\WidgetBundle\Widget\RepositoryWidget
+        parent: evgit.widget.abstract_widget
+        calls:
+            - [setName, ['repository']]
+            - [setDoctrine, ['@doctrine']]
         tags:
             - {name: widget}
