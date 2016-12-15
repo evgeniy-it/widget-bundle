@@ -14,8 +14,8 @@ class SimpleWidget extends AbstractWidget
      */
     public function process(array $options)
     {
-        if (!empty($options['tpl'])) {
-            $this->setTemplate($options['tpl']);
+        if (!empty($options['template'])) {
+            $this->setTemplate($options['template']);
         }
 
         return $this->render($options);
