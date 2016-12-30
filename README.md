@@ -60,11 +60,11 @@ Hello world
 ```
 Using custom template:
 ```twig
-{{ '[[simple? &setting1=\`value1\` &setting2=\`value2\` &setting3=\`value3\` &template=\`{{setting1}} - {{setting2}} - {{setting3}}\`]]'|widget }}
+{{ '[[simple? &setting1=`value1` &setting2=`value2` &setting3=`value3` &template=`{{setting1}} - {{setting2}} - {{setting3}}`]]'|widget }}
 ```
 or
 ```twig
-{{ '[[simple? &setting1=\`value1\` &setting2=\`value2\` &setting3=\`value3\` &template=\`AppBundle:Widget:simple.html.twig\`]]'|widget }}
+{{ '[[simple? &setting1=`value1` &setting2=`value2` &setting3=`value3` &template=`AppBundle:Widget:simple.html.twig`]]'|widget }}
 ```
 ```twig
 {# AppBundle:Widget:simple.html.twig#}
