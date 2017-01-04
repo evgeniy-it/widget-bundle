@@ -13,12 +13,3 @@ services:
             - [setTemplate, ['{{content}}']]
         tags:
             - {name: widget}
-
-    evgit.widget.repository_widget:
-        class: Evgit\Bundle\WidgetBundle\Widget\RepositoryWidget
-        parent: evgit.widget.abstract_widget
-        calls:
-            - [setName, ['repository']]
-#            - [setDoctrine, ['@doctrine']]
-        tags:
-            - {name: widget}
