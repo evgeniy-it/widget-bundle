@@ -18,12 +18,12 @@ Using widget shortcode like:
 ```
 [[widget_name? &setting=`1` &settingArray=`[1,2,3]` &settingAssocArray=`{'item1':'value1','item2':'value2'}`]] 
 ```
-Widget also can be nasted multiple times:
+Widget can also be nasted multiple times:
 ```
 [[widget_name? &nastedSetting=`[[widget_name2? &setting1=`value1` &setting2=`[[widget3]]`]]`]]
 ```
 
-For parsing and renedering use twig widget filter, it will find all widget, parse and process them:
+For parsing and rendering use twig widget filter, it will find all widget, parse and process them:
 ```twig
 {{ some_string_var|widget}}
 ```
