@@ -41,7 +41,7 @@ Be sure about widget syntax:
 
 ### Simple widget
 
-This widget just render setting variables into specified template. If template is not specified it will render only option `&content`.
+This widget just renders setting variables into specified template. If template is not specified it will render only option `&content`.
 You can specify template as well. Whether specify template as link or as string.
 
 #####Example:
