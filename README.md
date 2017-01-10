@@ -1,7 +1,7 @@
 Widget Bundle
 ==========
 
-Widget bundle is something similar with modx snippets, makes your content managment system powerful.
+Widget bundle is something similar to modx snippets, makes your content managment system powerful.
 
 
 # Install
