@@ -93,8 +93,8 @@ other params:
 in the specified template will be availabled those vars:
 * item - fetched entity model
 * idx (int) - ordinal Number
-* isFirst (bool) -  if element first
-* isLast (bool) - if it's last element
+* isFirst (bool) -  if the element is the first
+* isLast (bool) - if it's the last element
 
 Example:
 
