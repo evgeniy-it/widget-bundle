@@ -4,7 +4,7 @@ Widget Bundle
 Widget bundle is something similar to modx snippets, makes your content managment system powerful.
 
 
-# Install
+# Installing
 
 With composer:
 ```
@@ -14,7 +14,7 @@ Widget will be ready to work
 
 # Getting started
 
-Using widget shortcode like: 
+Render widget via such a shortcode: 
 ```
 [[widget_name? &setting=`1` &settingArray=`[1,2,3]` &settingAssocArray=`{'item1':'value1','item2':'value2'}`]] 
 ```
