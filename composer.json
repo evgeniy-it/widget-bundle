@@ -2,7 +2,7 @@
     "name": "evgeniy-it/widget-bundle",
     "type": "symfony-bundle",
     "description": "WidgetBundle is something similar to modx snippets, makes your content managment system powerful.",
-    "keywords": ["shortcode", "widget", "snippet", "templating", "chunk"],
+    "keywords": ["shortcode", "widget", "snippet", "templating", "chunk", "v1.0.0"],
     "license": "MIT",
     "version": "1.0.0",
     "authors": [
