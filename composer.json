@@ -4,6 +4,7 @@
     "description": "Symfony WidgetBundle",
     "keywords": ["shortcode", "widget", "snippet", "templating", "chunk"],
     "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Evgeniy Shevchenko",
