@@ -4,7 +4,7 @@ Widget Bundle
 Widget bundle is something similar to modx snippets, makes your content managment system powerful.
 
 
-# Installing
+# Installation
 
 With composer:
 ```
@@ -18,7 +18,7 @@ Render widget via such a shortcode:
 ```
 [[widget_name? &setting=`1` &settingArray=`[1,2,3]` &settingAssocArray=`{'item1':'value1','item2':'value2'}`]] 
 ```
-Widget can also be nested multiple times:
+Widget also can be nested multiple times:
 ```
 [[widget_name? &nestedSetting=`[[widget_name2? &setting1=`value1` &setting2=`[[widget3]]`]]`]]
 ```
@@ -30,10 +30,10 @@ For parsing and rendering use twig widget filter, it will find all widgets, pars
 
 Be sure about widget syntax:
 
-* widget name must ended with ?
-* any option must starts with &
-* any option value must be placed in \`
-* a widget starts with [[ and ends with ]]
+* widget name must be ended with ?
+* any option must start with &
+* any option value must be wrapped in \`
+* a widget must be started with [[ and ends with ]]
 
 #Using:
    
@@ -42,7 +42,7 @@ Be sure about widget syntax:
 ### Simple widget
 
 This widget just renders setting variables into specified template. If template is not specified it will render only option `&content`.
-You can specify template as well. Whether specify template as link or as string.
+You can specify template as well. Specify  template whether as a link or as a  string..
 
 #####Example:
 
@@ -87,10 +87,10 @@ Params:
 * args - function args. json format
 
 other params:
-* beforeTpl - contents piece of code thst it's showing before item code structure
-* afterTpl - contents piece of code thst it's showing after item code structure
+* beforeTpl - contents piece of code that is being shown before item code structure 
+* afterTpl - contents piece of code that is being shown after item code structure 
 
-in the specified template will be availabled those vars:
+in the specified template will be available those vars:
 * item - fetched entity model
 * idx (int) - ordinal Number
 * isFirst (bool) -  if the element is the first
