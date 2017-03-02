@@ -41,7 +41,7 @@ class Parser
                 $shortCode[self::PARSER_OPTIONS] = array_map([$this, 'process'], $shortCode[self::PARSER_OPTIONS]);
             }
         }
-
+        dump($shortCodes);
         for ($n = 0; $n < count($shortCodes); $n++) {
             if ($widget = $this->widgetCollection->getWidget($shortCodes[$n][self::PARSER_WIDGET])) {
                 $options = $shortCodes[$n][self::PARSER_OPTIONS];
