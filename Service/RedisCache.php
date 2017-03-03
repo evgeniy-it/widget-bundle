@@ -1,23 +1,32 @@
 <?php
-/**
- * RedisCache.php
- *
- * @category   Brander
- * @package    Brander_RedisCache.php
- * @author     brander.ua
- */
 
 namespace Evgit\Bundle\WidgetBundle\Service;
 
+use Predis\Client;
+
 /**
- * @author Tomfun <tomfun1990@gmail.com>
+ * class RedisCache
  */
 class RedisCache implements CacheInterface
 {
     /**
-     * @var ClientInterface
+     * @var \Redis
      */
-    private $redisService;
+    private $cacheProvider;
+
+    /**
+     * @var string
+     */
+    private $cachePrefix = 'widget_';
+
+    /**
+     * @param Client $cacheProvider
+     */
+    public function __construct(Client $cacheProvider)
+    {
+        $this->cacheProvider = $cacheProvider;
+    }
+
     /**
      * @param string $shortCode
      *
@@ -25,18 +34,26 @@ class RedisCache implements CacheInterface
      */
     public function isCached($shortCode)
     {
-        // TODO: Implement isCached() method.
+        return $this->cacheProvider->exists($this->getKeyByShortCode($shortCode));
     }
 
     /**
      * @param string $shortCode
      * @param string $content
+     * @param int    $lifeTime
      *
      * @return $this
      */
-    public function setCache($shortCode, $content)
+    public function setCache($shortCode, $content, $lifeTime = 0)
     {
-        // TODO: Implement setCache() method.
+        $id = $this->getKeyByShortCode($shortCode);
+        if (0 < $lifeTime) {
+            $result = $this->cacheProvider->setex($id, (int) $lifeTime, $content);
+        } else {
+            $result = $this->cacheProvider->set($id, $content);
+        }
+
+        return $result;
     }
 
     /**
@@ -46,7 +63,21 @@ class RedisCache implements CacheInterface
      */
     public function getCache($shortCode)
     {
-        // TODO: Implement getCache() method.
+        if (!$this->isCached($shortCode)) {
+            return false;
+        }
+
+        return $this->cacheProvider->get($shortCode);
     }
 
+    /**
+     * @param $shortCode
+     * @return string
+     */
+    private function getKeyByShortCode($shortCode)
+    {
+        $shortCode = str_replace(["\n", " "], "", $shortCode);
+
+        return $this->cachePrefix.md5($shortCode);
+    }
 }

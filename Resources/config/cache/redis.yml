@@ -1,0 +1,4 @@
+services:
+    evgit.cache:
+       class: Evgit\Bundle\WidgetBundle\Service\RedisCache
+       arguments: ['@snc_redis.default']

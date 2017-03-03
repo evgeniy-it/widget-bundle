@@ -2,6 +2,7 @@
 
 namespace Evgit\Bundle\WidgetBundle;
 
+use Evgit\Bundle\WidgetBundle\DependencyInjection\Compiler\CacheCompilerPass;
 use Evgit\Bundle\WidgetBundle\DependencyInjection\Compiler\WidgetCollectionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -24,5 +25,6 @@ class EvgitWidgetBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         $container->addCompilerPass(new WidgetCollectionCompilerPass());
+        $container->addCompilerPass(new CacheCompilerPass());
     }
 }
