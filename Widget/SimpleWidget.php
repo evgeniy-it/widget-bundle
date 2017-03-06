@@ -31,7 +31,7 @@ class SimpleWidget extends AbstractWidget
         if (!empty($options['template'])) {
             $this->setTemplate($options['template']);
         }
-dump($options);
+
         return $this->render($options);
     }
 
@@ -41,7 +41,7 @@ dump($options);
      * @return $this
      */
     public function setRequiredOptions(array $array)
-    {dump($array);
+    {
         $this->resolver->setRequired($array);
 
         return $this;

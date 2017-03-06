@@ -68,6 +68,7 @@ abstract class AbstractWidget implements WidgetInterface
 
     /**
      * @param array $options
+     * @param bool  $template
      *
      * @return string
      */
@@ -93,7 +94,7 @@ abstract class AbstractWidget implements WidgetInterface
 
             return $twig->render($templateName, $options);
         }
-dump($template);
+
         return $this->twig->render($template, $options);
     }
 }
