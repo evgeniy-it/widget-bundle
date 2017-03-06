@@ -93,7 +93,7 @@ abstract class AbstractWidget implements WidgetInterface
 
             return $twig->render($templateName, $options);
         }
-
+dump($template);
         return $this->twig->render($template, $options);
     }
 }

@@ -24,14 +24,14 @@ class SimpleWidget extends AbstractWidget
      */
     public function process(array $options)
     {
-        if (!empty($this->resolver->getDefinedOptions()) && !empty($this->resolver->getRequiredOptions())) {
+        if (!empty($this->resolver->getDefinedOptions()) || !empty($this->resolver->getRequiredOptions())) {
             $options = $this->resolver->resolve($options);
         }
 
         if (!empty($options['template'])) {
             $this->setTemplate($options['template']);
         }
-
+dump($options);
         return $this->render($options);
     }
 
@@ -41,7 +41,7 @@ class SimpleWidget extends AbstractWidget
      * @return $this
      */
     public function setRequiredOptions(array $array)
-    {
+    {dump($array);
         $this->resolver->setRequired($array);
 
         return $this;
@@ -54,7 +54,7 @@ class SimpleWidget extends AbstractWidget
      */
     public function setDefaultOptions($defaultOptions)
     {
-        $this->resolver->setRequired($defaultOptions);
+        $this->resolver->setDefaults($defaultOptions);
 
         return $this;
     }

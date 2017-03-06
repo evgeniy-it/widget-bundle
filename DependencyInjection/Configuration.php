@@ -24,8 +24,11 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('cacheable')
                     ->defaultFalse()
                 ->end()
-                ->scalarNode("cacheProvider")
+                ->scalarNode("cache_provider")
                     ->defaultValue("redis")
+                ->end()
+                ->integerNode("cache_ttl")
+                    ->defaultValue(86400)
                 ->end()
             ->end();
 

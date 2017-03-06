@@ -28,6 +28,11 @@ class Parser
     private $cacheProvider;
 
     /**
+     * @var int
+     */
+    private $cacheDefaultTtl;
+
+    /**
      * @param string    $string
      * @param bool|true $processRecursive
      *
@@ -63,10 +68,13 @@ class Parser
 
             //get widget and cached it
             if ($widget = $this->widgetCollection->getWidget($shortCodes[$n][self::PARSER_WIDGET])) {
+                $cacheTtl = $shortCodes[$n][self::PARSER_OPTIONS]['_cacheTtl'];
+                unset($shortCodes[$n][self::PARSER_OPTIONS]['_cacheTtl']);
+
                 $widgetData = $widget->process($shortCodes[$n][self::PARSER_OPTIONS]);
                 $string = str_replace($shortCodes[$n][self::PARSER_FULL_CODE], $widgetData, $string);
                 if ($shortCodes[$n][self::PARSER_CACHE]) {
-                    $this->cacheProvider->setCache($shortCodes[$n][self::PARSER_PREPARED], $widgetData, $shortCodes[$n][self::PARSER_OPTIONS]['_cacheTtl']);
+                    $this->cacheProvider->setCache($shortCodes[$n][self::PARSER_PREPARED], $string);
                 }
             }
         }
@@ -94,6 +102,18 @@ class Parser
     public function setCacheProvider(CacheInterface $cacheProvider)
     {
         $this->cacheProvider = $cacheProvider;
+
+        return $this;
+    }
+
+    /**
+     * @param int $cacheDefaultTtl
+     *
+     * @return $this
+     */
+    public function setCacheDefaultTtl($cacheDefaultTtl)
+    {
+        $this->cacheDefaultTtl = (int) $cacheDefaultTtl;
 
         return $this;
     }
@@ -153,7 +173,11 @@ class Parser
                 $options[self::PARSER_OPTIONS]['_cacheTtl'] =
                     array_key_exists('_cacheTtl', $options[self::PARSER_OPTIONS])
                     ? $options[self::PARSER_OPTIONS]['_cacheTtl']
-                    : 0;
+                    : $this->cacheDefaultTtl;
+
+
+            } else {
+                $options[self::PARSER_OPTIONS]['_cacheTtl'] = false;///todo fix this
             }
         }
 

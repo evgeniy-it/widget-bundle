@@ -23,10 +23,10 @@ class EvgitWidgetExtension extends ConfigurableExtension
         $loader->load('services.yml');
 
         if ($configs['cacheable']) {
-            if (!$configs['cacheProvider']) {
-                throw new \Exception("cacheProvider is not defined");
+            if (!$configs['cache_provider']) {
+                throw new \Exception("cache_provider is not defined");
             }
-            $loader->load(sprintf('cache/%s.yml', $configs['cacheProvider']));
+            $loader->load(sprintf('cache/%s.yml', $configs['cache_provider']));
         }
     }
 
