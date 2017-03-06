@@ -15,6 +15,8 @@ class Parser
 
     const PARSER_OPTIONS = 3;
 
+    const PARSER_CACHE = 4;
+
     /**
      * @var WidgetCollection
      */
@@ -40,6 +42,7 @@ class Parser
         }
 
         array_walk($shortCodes, [$this, "parseOptions"]);
+        array_walk($shortCodes, [$this, "checkCacheable"]);
 
         if (true === $processRecursive) {
             foreach ($shortCodes as &$shortCode) {
@@ -48,9 +51,23 @@ class Parser
         }
 
         for ($n = 0; $n < count($shortCodes); $n++) {
+            //check cache
+            if ($shortCodes[$n][self::PARSER_CACHE]
+                && $this->cacheProvider->isCached($shortCodes[$n][self::PARSER_PREPARED])
+            ) {
+                $cachedWidget = $this->cacheProvider->getCache($shortCodes[$n][self::PARSER_PREPARED]);
+                $string = str_replace($shortCodes[$n][self::PARSER_FULL_CODE], $cachedWidget, $string);
+
+                continue;
+            }
+
+            //get widget and cached it
             if ($widget = $this->widgetCollection->getWidget($shortCodes[$n][self::PARSER_WIDGET])) {
-                $options = $shortCodes[$n][self::PARSER_OPTIONS];
-                $string = str_replace($shortCodes[$n][self::PARSER_FULL_CODE], $widget->process($options), $string);
+                $widgetData = $widget->process($shortCodes[$n][self::PARSER_OPTIONS]);
+                $string = str_replace($shortCodes[$n][self::PARSER_FULL_CODE], $widgetData, $string);
+                if ($shortCodes[$n][self::PARSER_CACHE]) {
+                    $this->cacheProvider->setCache($shortCodes[$n][self::PARSER_PREPARED], $widgetData, $shortCodes[$n][self::PARSER_OPTIONS]['_cacheTtl']);
+                }
             }
         }
 
@@ -93,7 +110,7 @@ class Parser
             ? $string
             : substr($string, 0, strpos($string, "?"));
 
-        $properties = array();
+        $properties = [];
         $tagProps = $this->escSplit("&", $string);
 
         foreach ($tagProps as $prop) {
@@ -118,6 +135,29 @@ class Parser
             }
         }
         $options[self::PARSER_OPTIONS] = $properties;
+    }
+
+    /**
+     * @param $options
+     */
+    protected function checkCacheable(&$options)
+    {
+        $options[self::PARSER_CACHE] = false;
+
+        if (substr($options[self::PARSER_WIDGET], 0, 1) === '!') {
+            $options[self::PARSER_WIDGET] = substr($options[self::PARSER_WIDGET], 1);
+        } else {
+            if ($this->cacheProvider instanceof CacheInterface) {
+                $options[self::PARSER_CACHE] = true;
+
+                $options[self::PARSER_OPTIONS]['_cacheTtl'] =
+                    array_key_exists('_cacheTtl', $options[self::PARSER_OPTIONS])
+                    ? $options[self::PARSER_OPTIONS]['_cacheTtl']
+                    : 0;
+            }
+        }
+
+        return;
     }
 
     /**

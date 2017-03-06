@@ -17,10 +17,11 @@ interface CacheInterface
     /**
      * @param string $shortCode
      * @param string $content
+     * @param int    $lifeTime
      *
      * @return $this
      */
-    public function setCache($shortCode, $content);
+    public function setCache($shortCode, $content, $lifeTime = 0);
 
     /**
      * @param string $shortCode
