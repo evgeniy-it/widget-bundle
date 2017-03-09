@@ -31,6 +31,7 @@ class SimpleWidget extends AbstractWidget
         if (!empty($options['template'])) {
             $this->setTemplate($options['template']);
         }
+        array_walk($options, [$this, 'decodeString']);
 
         return $this->render($options);
     }
@@ -57,5 +58,21 @@ class SimpleWidget extends AbstractWidget
         $this->resolver->setDefaults($defaultOptions);
 
         return $this;
+    }
+
+    /**
+     * @param $string
+     *
+     * @return bool
+     */
+    private function decodeString(&$string)
+    {
+        $resultString = json_decode($string, true);
+
+        if (json_last_error() === JSON_ERROR_NONE) {
+            $string = $resultString;
+        }
+
+        return;
     }
 }
